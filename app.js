@@ -27,4 +27,4 @@ headers.split(",").forEach((header, i) => {
     template[header] = i;
   }
 });
-console.log(template);
+console.log(rest);
