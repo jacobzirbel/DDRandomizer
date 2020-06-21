@@ -7,7 +7,6 @@ headers.split(",").forEach((header, i) => {
   if (header.includes("max")) {
     let key = header.substr(0, header.indexOf("max"));
 
-    console.log(key);
     if (template[key]) {
       template[key]["max"] = i;
     } else {
@@ -16,7 +15,6 @@ headers.split(",").forEach((header, i) => {
     }
   } else if (header.includes("min")) {
     let key = header.substr(0, header.indexOf("min"));
-    console.log(key);
     if (template[key]) {
       template[key]["min"] = i;
     } else {
@@ -27,4 +25,18 @@ headers.split(",").forEach((header, i) => {
     template[header] = i;
   }
 });
-console.log(rest);
+let chars = rest.map((char) => {
+  let ret = {};
+  char = char.split(",");
+  Object.keys(template).forEach((key) => {
+    if (typeof template[key] === "number") {
+      ret[key] = char[template[key]];
+    } else {
+      ret[key] = {}
+      ret[key]["min"] = char[template[key]["min"]];
+      ret[key]["max"] = char[template[key]["max"]];
+    }
+  });
+  return ret; 
+});
+console.log(chars[0]);
