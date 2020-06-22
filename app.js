@@ -64,20 +64,23 @@ regions.forEach((r) => {
   let cs = chars.filter((e) => e.region.includes(r));
   regionChars[r] = cs;
 });
-function ask(){
+function ask() {
   inquirer
-  .prompt([
-    {
-      name: "region",
-      message: "Which region? ",
-      type: "list",
-      choices: regions,
-    },
-  ])
-  .then((answers) => {
-    console.log(getCharByRegion(answers.region));
-    ask()
-  });
+    .prompt([
+      {
+        name: "region",
+        message: "Which region? ",
+        type: "list",
+        choices: [... regions,"quit" ],
+      },
+    ])
+    .then((answers) => {
+			if(answers.region === 'quit') return;
+      let char = getCharByRegion(answers.region);
+      console.log(char);
+      console.log("Roll: " + getDiceRoll(char["dicecalc"]));
+      ask();
+    });
 }
 function getCharByRegion(region) {
   let char = getRandomFromArray(regionChars[region]);
@@ -90,7 +93,7 @@ function getCharByRegion(region) {
         ret[key] = getRndInteger(char[key].min, char[key].max);
       }
     } else {
-      ret[key] = char[key]
+      ret[key] = char[key];
     }
   });
   return ret;
@@ -100,8 +103,20 @@ function getRandomFromArray(array) {
 }
 function getRndInteger(min, max) {
   // min and max included
-   min = +min
-   max = +max
+  min = +min;
+  max = +max;
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function getDiceRoll(formula) {
+  let one = formula.split("d");
+  let two = one[1].split("+");
+  let three = [one[0], ...two];
+  three = three.map((e) => +e);
+  if (!three[2]) three[2] = 0;
+  let sum = 0;
+  while (three[0]-- > 0) {
+    sum += getRndInteger(1, three[1]);
+  }
+  return sum + three[2];
 }
 ask();
