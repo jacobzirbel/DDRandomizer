@@ -71,14 +71,14 @@ function ask() {
         name: "region",
         message: "Which region? ",
         type: "list",
-        choices: [... regions,"quit" ],
+        choices: [...regions, "quit"],
       },
     ])
     .then((answers) => {
-			if(answers.region === 'quit') return;
+      if (answers.region === "quit") return;
       let char = getCharByRegion(answers.region);
       console.log(char);
-      console.log("Roll: " + getDiceRoll(char["dicecalc"]));
+      console.log("\n" + "Roll: " + getDiceRoll(char["dicecalc"]) + "\n");
       ask();
     });
 }
