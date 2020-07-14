@@ -1,3 +1,5 @@
+![ScreenShot](screenshot.png)
+
 # DDRandomizer
 
 ### Purpose
