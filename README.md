@@ -3,7 +3,7 @@
 # DDRandomizer
 
 ### Purpose
-Command line tool to provide a character with random stats from a selected region for a Dungeons & Dragons the Dungeon Master (game organizer). 
+Command line tool to provide a character with random stats from a selected region for a Dungeons & Dragons Dungeon Master (game organizer). 
 
 ### Getting Started
   - Must have Node.js installed
